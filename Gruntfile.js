@@ -22,6 +22,12 @@ module.exports = function (grunt) {
             ]
         },
 
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
+        },
+
         compass: {
             dev: {
                 options: {
@@ -54,6 +60,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-node-webkit-builder');
+    grunt.loadNpmTasks('grunt-karma');
 
     // Build desktop
     grunt.registerTask('build', [
@@ -64,6 +71,11 @@ module.exports = function (grunt) {
     // Dev
     grunt.registerTask('dev', [
         'compass:dev'
+    ]);
+
+    // Run tests
+    grunt.registerTask('test', [
+      'karma'
     ]);
 
     grunt.event.on('watch', function(action, filepath, target) {
