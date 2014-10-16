@@ -54,7 +54,7 @@ app.service('SCapiService', function($http, $window, $q, $log, $state, $statePar
 
         this.isLoading();
 
-       return $http.get(url)
+       return $http.get(ur  l)
                     .then(function(response) {
                         if (typeof response.data === 'object') {
                             if ( response.data.next_href !== null || response.data.next_href !== undefined ) {
