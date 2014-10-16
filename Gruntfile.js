@@ -2,14 +2,13 @@ module.exports = function (grunt) {
 plato: {
   your_task: {
     options : {
-      excludeFromFile: 'app/public/js/vendor'
-    }
+      exclude: 'app'
+    },
     files: {
-      'reports': ['app/public/js/*.js']
+      'reports': ['app/public/js/**/*.js']
     }
   }
 },
-
         nodewebkit: {
             options: {
                 build_dir: './dist', // Where the build version of my node-webkit app is saved
@@ -75,6 +74,11 @@ plato: {
     grunt.registerTask('build', [
         'compass:production',
         'nodewebkit'
+    ]);
+
+    // Plato
+    grunt.registerTask('plato', [
+        'plato'
     ]);
 
     // Dev
