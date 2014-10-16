@@ -1,6 +1,14 @@
 module.exports = function (grunt) {
-
-    grunt.initConfig({
+plato: {
+  your_task: {
+    options : {
+      excludeFromFile: 'app/public/js/vendor'
+    }
+    files: {
+      'reports': ['app/public/js/*.js']
+    }
+  }
+},
 
         nodewebkit: {
             options: {
@@ -20,6 +28,12 @@ module.exports = function (grunt) {
                 '!./**/*.sass-cache',
                 '!./app/public/assets'
             ]
+        },
+
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
         },
 
         compass: {
@@ -51,9 +65,11 @@ module.exports = function (grunt) {
 
     });
 
+    grunt.loadNpmTasks('grunt-plato');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-node-webkit-builder');
+    grunt.loadNpmTasks('grunt-karma');
 
     // Build desktop
     grunt.registerTask('build', [
@@ -65,6 +81,15 @@ module.exports = function (grunt) {
     grunt.registerTask('dev', [
         'compass:dev'
     ]);
+
+    // Run tests
+    grunt.registerTask('test', [
+      'karma'
+    ]);
+
+   grunt.registerTask('mi', [
+     'plato'
+   ]);
 
     grunt.event.on('watch', function(action, filepath, target) {
         grunt.log.writeln(target + ': ' + filepath + ' has ' + action);

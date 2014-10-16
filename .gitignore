@@ -5,3 +5,5 @@ node_modules
 dist/
 .project
 .settings/
+target/
+checkstyle.xml
