@@ -1,14 +1,18 @@
 module.exports = function (grunt) {
-plato: {
-  your_task: {
-    options : {
-      excludeFromFile: 'app/public/js/vendor'
-    }
-    files: {
-      'reports': ['app/public/js/*.js']
-    }
-  }
-},
+
+
+    grunt.initConfig({
+
+//        plato: {
+//          your_task: {
+//            options : {
+//              excludeFromFile: 'app/public/js/vendor'
+//            },
+//            files: {
+//              'reports': ['app/public/js/**/*.js']
+//            }
+//          }
+//        },
 
         nodewebkit: {
             options: {
@@ -90,6 +94,10 @@ plato: {
    grunt.registerTask('mi', [
      'plato'
    ]);
+
+//    grunt.registerTask('plato', [
+//        'plato:your_task'
+//    ]);
 
     grunt.event.on('watch', function(action, filepath, target) {
         grunt.log.writeln(target + ': ' + filepath + ' has ' + action);

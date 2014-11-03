@@ -10,3 +10,13 @@ describe("A suite", function() {
         expect(true).toBe(true);
     });
 });
+
+describe("A suite", function() {
+
+
+    console.log("penis in anus");
+
+    it("contains spec with an expectation", function() {
+        expect(true).toBe(true);
+    });
+});
