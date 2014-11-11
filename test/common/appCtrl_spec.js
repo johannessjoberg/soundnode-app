@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit test: AboutCtrl', function(){
+describe('Unit test: AppCtrl', function(){
   var $httpBackend, $rootScope, authRequestHandler, createController;
   beforeEach(module('App'));
   beforeEach(inject(function($injector){
