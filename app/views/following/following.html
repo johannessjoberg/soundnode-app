@@ -17,17 +17,15 @@
                 ng-mouseleave="hover = false">
 
                 <div class="songList_item_container_artwork">
+                    <a ui-sref="profile({id: {{data.id}}})">
                     <span class="songList_item_song_button"
-                          song
-                          data-song-url="{{ data.stream_url }}"
-                          data-song-thumbnail="{{ data.avatar_url }}"
-                          data-song-title="{{ data.title }}"
-                          data-song-user="{{ data.user.username }}" >
+                          >
 
                         <i class="fa fa-play"></i>
                         <i class="fa fa-pause"></i>
                     </span>
                     <img src="{{ showBigArtwork (data.avatar_url) }}" alt="{{ data.title }}" class="songList_item_artwork">
+                    </a>
                 </div>
 
                 <section class="songList_item_inner">

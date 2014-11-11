@@ -10,7 +10,7 @@ app.controller('TracksCtrl', function ($scope, SCapiService, $rootScope) {
 
     SCapiService.get(endpoint, params)
                 .then(function(data) {
-                    $scope.data = data;
+                    $scope.data = data.collection;
                 }, function(error) {
                     console.log('error', error);
                 }).finally(function() {

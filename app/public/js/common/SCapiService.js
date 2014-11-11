@@ -20,7 +20,7 @@ app.service('SCapiService', function($http, $window, $q, $log, $state, $statePar
     this.get = function(endpoint, params) {
 
         var url = 'https://api.soundcloud.com/' + endpoint + '.json?' + params + '&oauth_token=' + $window.scAccessToken
-            , that = this;
+            + '&linked_partitioning=1', that = this;
 
         this.isLoading();
 
@@ -28,7 +28,9 @@ app.service('SCapiService', function($http, $window, $q, $log, $state, $statePar
                     .then(function(response) {
                         if (typeof response.data === 'object') {
                             if ( response.data.next_href !== null || response.data.next_href !== undefined ) {
+                                console.log("response.data.next_href", response.data.next_href);
                                 that.next_page = response.data.next_href;
+                                console.log("next page setter", that.next_page);
                             } else {
                                 that.next_page = '';
                             }
@@ -48,9 +50,8 @@ app.service('SCapiService', function($http, $window, $q, $log, $state, $statePar
      * Responsible to request next page data and save new next_page url
      * @returns {Object} data
      */
-    this.getNextPage = function() {
-        var url = this.next_page + '&oauth_token=' + $window.scAccessToken
-            , that = this;
+    this.getNextPage = function(next_url) {
+           var url = next_url + '&oauth_token=' + $window.scAccessToken + '&linked_partitioning=1', that = this;
 
         this.isLoading();
 
@@ -60,16 +61,37 @@ app.service('SCapiService', function($http, $window, $q, $log, $state, $statePar
                             if ( response.data.next_href !== null || response.data.next_href !== undefined ) {
                                 that.next_page = response.data.next_href;
                             }
+                            console.log("next page response data", response.data);
                             return response.data;
                         } else {
                             // invalid response
+                            console.log("next page invalid response data", response.data);
                             return $q.reject(response.data);
                         }
 
                     }, function(response) {
                         // something went wrong
+                        console.log("next page wrong response data", response.data);
                         return $q.reject(response.data);
                     });
+    };
+
+    this.getProfile = function(userId) {
+        var url = 'https://api.soundcloud.com/users/' + userId + '.json?&oauth_token=' + $window.scAccessToken,
+            that = this;
+        return $http.put(url)
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    // invalid response
+                    return $q.reject(response.data);
+                }
+            }, function(response) {
+                // something went wrong
+                return $q.reject(response.data);
+            });
+
     };
 
     /**
