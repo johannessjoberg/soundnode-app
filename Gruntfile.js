@@ -1,16 +1,20 @@
 module.exports = function (grunt) {
-plato: {
-  your_task: {
-    options : {
-      exclude: 'app'
-    },
-    files: {
-      'reports': ['app/public/js/**/*.js']
-    }
-  }
-},
-        nodewebkit: {
-            options: {
+  grunt.initConfig({
+    plato: {
+      your_task: {
+        files: [{
+          expand: true,
+          cwd: 'app/public/js',
+          src: [
+            '**/*.js',
+            '!vendor/**/*.js',
+          ],
+            dest: 'plato/reports'
+            }]
+        }
+        },
+                nodewebkit: {
+                options: {
                 build_dir: './dist', // Where the build version of my node-webkit app is saved
                 mac: true, // We want to build it for mac
                 win: true, // We want to build it for win
@@ -19,48 +23,48 @@ plato: {
                 download_url: 'http://www.soundnodeapp.com/build/',
                 mac_icns: './app/soundnode.icns',
                 version: '0.10.4'
-            },
-            src: [
+                },
+                src: [
                 './app/**/*',
                 '!./app/public/stylesheets/sass',
                 '!./app/public/stylesheets/config.rb',
                 '!./**/*.sass-cache',
                 '!./app/public/assets'
-            ]
-        },
+               ]
+      },
 
-        karma: {
-            unit: {
-                configFile: 'karma.conf.js'
-            }
-        },
-
-        compass: {
-            dev: {
-                options: {
-                    sassDir: 'app/public/stylesheets/sass',
-                    cssDir: 'app/public/stylesheets/css'
-                }
-            },
-            production: {
-                options: {
-                    sassDir: 'app/public/stylesheets/sass',
-                    cssDir: 'app/public/stylesheets/css',
-                    environment: 'production',
-                    outputStyle: 'compressed',
-                    force: true
-                }
-            }
-        },
-
-        watch: {
-            src: {
-                files: [
-                    'app/public/stylesheets/sass/**/*.scss'
-                ],
-                tasks: ['dev']
-            }
+      karma: {
+        unit: {
+          configFile: 'karma.conf.js'
         }
+      },
+
+      compass: {
+        dev: {
+          options: {
+            sassDir: 'app/public/stylesheets/sass',
+            cssDir: 'app/public/stylesheets/css'
+          }
+        },
+        production: {
+          options: {
+            sassDir: 'app/public/stylesheets/sass',
+            cssDir: 'app/public/stylesheets/css',
+            environment: 'production',
+            outputStyle: 'compressed',
+            force: true
+          }
+        }
+      },
+
+      watch: {
+        src: {
+          files: [
+            'app/public/stylesheets/sass/**/*.scss'
+          ],
+          tasks: ['dev']
+        }
+      }
 
     });
 
@@ -72,31 +76,31 @@ plato: {
 
     // Build desktop
     grunt.registerTask('build', [
-        'compass:production',
-        'nodewebkit'
+    'compass:production',
+    'nodewebkit'
     ]);
 
     // Plato
     grunt.registerTask('plato', [
-        'plato'
+    'plato:your_task'
     ]);
 
     // Dev
     grunt.registerTask('dev', [
-        'compass:dev'
+    'compass:dev'
     ]);
 
     // Run tests
     grunt.registerTask('test', [
-      'karma'
+    'karma'
     ]);
 
-   grunt.registerTask('mi', [
-     'plato'
-   ]);
+    grunt.registerTask('mi', [
+    'plato'
+    ]);
 
     grunt.event.on('watch', function(action, filepath, target) {
-        grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
-    });
+    grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
+  });
 
 };
