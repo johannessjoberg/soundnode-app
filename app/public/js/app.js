@@ -34,10 +34,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'FollowingCtrl'
         })
         .state('search', {
-            url: '/search?q',
-            templateUrl: 'views/search/search.html',
-            controller: 'searchCtrl'
-        });
+        url: '/search?q',
+        templateUrl: 'views/search/search.html',
+        controller: 'searchCtrl'
+        })
+        .state('profile', {
+            url: '/profile/:id',
+            templateUrl: 'views/profile/profile.html',
+            controller: 'ProfileCtrl'
+    });
 });
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000);
