@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+<<<<<<< HEAD
   grunt.initConfig({
     plato: {
       your_task: {
@@ -15,6 +16,25 @@ module.exports = function (grunt) {
         },
                 nodewebkit: {
                 options: {
+=======
+
+
+    grunt.initConfig({
+
+//        plato: {
+//          your_task: {
+//            options : {
+//              excludeFromFile: 'app/public/js/vendor'
+//            },
+//            files: {
+//              'reports': ['app/public/js/**/*.js']
+//            }
+//          }
+//        },
+
+        nodewebkit: {
+            options: {
+>>>>>>> e2b5eda3771e59832a1ada9c87fb46314aaf30e7
                 build_dir: './dist', // Where the build version of my node-webkit app is saved
                 mac: true, // We want to build it for mac
                 win: true, // We want to build it for win
@@ -98,6 +118,10 @@ module.exports = function (grunt) {
     grunt.registerTask('mi', [
     'plato'
     ]);
+
+//    grunt.registerTask('plato', [
+//        'plato:your_task'
+//    ]);
 
     grunt.event.on('watch', function(action, filepath, target) {
     grunt.log.writeln(target + ': ' + filepath + ' has ' + action);

@@ -3,5 +3,7 @@ node_modules
 .DS_Store
 .sass-cache
 dist/
+.project
+.settings/
 target/
 checkstyle.xml
