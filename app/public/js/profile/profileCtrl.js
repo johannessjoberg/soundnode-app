@@ -5,24 +5,32 @@
 'use strict'
 
 app.controller('ProfileCtrl', function ($scope, SCapiService, $rootScope, $stateParams) {
-    $scope.id = $stateParams.id;
-    console.log("id: " + $scope.id)
-
-    var endpoint = 'users/' + $scope.id  + '/tracks'
+    var userId = $stateParams.id;
+    var endpoint = 'users/' + userId  + '/tracks'
         , params = 'limit=9';
+    var next_url = '';
+
+    $scope.profileData = '';
+    $scope.followers_count = '';
+    $scope.descLimit = '1800';
+    $scope.expandleable = false;
+    $scope.expanded = false;
 
 
     $scope.userData = '';
     $scope.title = 'Profile';
     $scope.data = '';
     $scope.busy = false;
-    $scope.next_url = '';
 
-    SCapiService.getProfile($scope.id)
+
+
+    SCapiService.getProfile(userId)
         .then(function(data) {
-            console.log("get data:" + data)
-            $scope.data = data;
-            console.log("scope data:" + $scope.data)
+            $scope.profileData = data;
+            $scope.followers_count = numberWithCommas(data.followers_count);
+            if(data.description.length > 1800) {
+                $scope.expandable = true;
+            }
         }, function(error) {
             console.log('error', error);
         }).finally(function() {
@@ -31,10 +39,8 @@ app.controller('ProfileCtrl', function ($scope, SCapiService, $rootScope, $state
 
     SCapiService.get(endpoint, params)
         .then(function(data) {
-            console.log("get data:" + data)
             $scope.data = data.collection;
-            $scope.next_url = data.next_href;
-            console.log("scope data:" + $scope.data)
+            next_url = data.next_href;
         }, function(error) {
             console.log('error', error);
         }).finally(function() {
@@ -47,12 +53,12 @@ app.controller('ProfileCtrl', function ($scope, SCapiService, $rootScope, $state
         }
         $scope.busy = true;
 
-        SCapiService.getNextPage($scope.next_url)
+        SCapiService.getNextPage(next_url)
             .then(function(data) {
                 for ( var i = 0; i < data.collection.length; i++ ) {
                     $scope.data.push( data.collection[i] )
                 }
-                $scope.next_url = data.next_href;
+                next_url = data.next_href;
             }, function(error) {
                 console.log('error', error);
             }).finally(function(){
@@ -60,5 +66,11 @@ app.controller('ProfileCtrl', function ($scope, SCapiService, $rootScope, $state
                 $rootScope.isLoading = false;
             });
     };
+
+    $
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 });

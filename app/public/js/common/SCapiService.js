@@ -76,19 +76,57 @@ app.service('SCapiService', function($http, $window, $q, $log, $state, $statePar
                     });
     };
 
-    this.getProfile = function(userId) {
-        var url = 'https://api.soundcloud.com/users/' + userId + '.json?&oauth_token=' + $window.scAccessToken,
-            that = this;
-        return $http.put(url)
+
+    this.getFollowing = function () {
+        this.isLoading();
+        
+        var url = 'https://api.soundcloud.com/' + 'me/followings' + '.json?' + 'limit=100' + '&oauth_token=' + $window.scAccessToken
+            + '&linked_partitioning=1', that = this;
+
+
+        return $http.get(url)
             .then(function(response) {
                 if (typeof response.data === 'object') {
+                    if ( response.data.next_href !== null || response.data.next_href !== undefined ) {
+                        console.log("response.data.next_href", response.data.next_href);
+                        that.next_page = response.data.next_href;
+                        console.log("next page setter", that.next_page);
+                    } else {
+                        that.next_page = '';
+                    }
                     return response.data;
                 } else {
                     // invalid response
                     return $q.reject(response.data);
                 }
+
             }, function(response) {
                 // something went wrong
+                return $q.reject(response.data);
+            });
+    }
+
+
+    this.getProfile = function(userId) {
+        var url = 'https://api.soundcloud.com/users/' + userId + '.json?&oauth_token=' + $window.scAccessToken,
+            that = this;
+        return $http.get(url)
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    if ( response.data.next_href !== null || response.data.next_href !== undefined ) {
+                        that.next_page = response.data.next_href;
+                    }
+                    console.log("profile response data", response.data);
+                    return response.data;
+                } else {
+                    // invalid response
+                    console.log("profile invalid response data", response.data);
+                    return $q.reject(response.data);
+                }
+
+            }, function(response) {
+                // something went wrong
+                console.log("profile wrong response data", response.data);
                 return $q.reject(response.data);
             });
 

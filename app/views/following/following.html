@@ -1,17 +1,17 @@
 <div class="followingView">
     <h1> {{ title }}</h1>
 
-    <div ng-include="'views/partials/loading.html'"></div>
+
 
     <!-- Song list wrapper -->
     <div class="favoritesView_inner">
-        <ul class="songList"
+        <ul class="following"
             infinite-scroll='loadMore()'
             infinite-scroll-distance='0'
             infinite-scroll-disabled='{{ busy }}'
             infinite-scroll-immediate-check='false' >
 
-            <li class="songList_item" ng-repeat="data in data"
+            <li class="following_item" ng-repeat="data in data"
                 ng-class="{ active: hover }"
                 ng-mouseover="hover = true"
                 ng-mouseleave="hover = false">
@@ -21,8 +21,8 @@
                     <span class="songList_item_song_button"
                           >
 
-                        <i class="fa fa-play"></i>
-                        <i class="fa fa-pause"></i>
+                        <i class="fa fa-arrow-circle-o-right"></i>
+                        <i class="fa fa-arrow-circle-o-right"></i>
                     </span>
                     <img src="{{ showBigArtwork (data.avatar_url) }}" alt="{{ data.title }}" class="songList_item_artwork">
                     </a>
@@ -36,5 +36,7 @@
             </li>
         </ul>
     </div>
+
+    <div ng-include="'views/partials/loading.html'"></div>
 
 </div>

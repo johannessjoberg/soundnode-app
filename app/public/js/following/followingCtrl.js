@@ -1,19 +1,17 @@
 'use strict';
 
 app.controller('FollowingCtrl', function ($scope, SCapiService, $rootScope) {
-    var endpoint = 'me/followings'
-        , params = 'limit=9';
+    var next_url = '';
 
-    $scope.title = 'Following view:';
+    $scope.title = 'Following:';
     $scope.data = '';
     $scope.busy = false;
-    $scope.next_url = '';
 
-    SCapiService.get(endpoint, params)
+    SCapiService.getFollowing()
         .then(function(data) {
-            $scope.data = data.collection;
-            $scope.next_url = data.next_href;
-            console.log( $scope.data)
+            $scope.data = data.collection.sort( predicatBy("username") );
+            next_url = data.next_href;
+            console.log($scope.data)
         }, function(error) {
             console.log('error', error);
         }).finally(function() {
@@ -26,12 +24,12 @@ app.controller('FollowingCtrl', function ($scope, SCapiService, $rootScope) {
         }
         $scope.busy = true;
 
-        SCapiService.getNextPage($scope.next_url)
+        SCapiService.getNextPage(next_url)
             .then(function(data) {
                 for ( var i = 0; i < data.collection.length; i++ ) {
                     $scope.data.push( data.collection[i] )
                 }
-                $scope.next_url = data.next_href;
+                next_url = data.next_href;
             }, function(error) {
                 console.log('error', error);
             }).finally(function(){
@@ -39,5 +37,17 @@ app.controller('FollowingCtrl', function ($scope, SCapiService, $rootScope) {
                 $rootScope.isLoading = false;
             });
     };
+
+    function predicatBy(prop){
+        return function(a,b){
+            if( a[prop] > b[prop]){
+                return 1;
+            }else if( a[prop] < b[prop] ){
+                return -1;
+            }
+            return 0;
+        }
+    }
+
 
 });
