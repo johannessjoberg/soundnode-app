@@ -1,0 +1,39 @@
+'use strict';
+
+describe('Unit test: searchCtrl', function(){
+  var $httpBackend, $rootScope, authRequestHandler, createController;
+  beforeEach(module('App'));
+  beforeEach(inject(function($injector){
+    $httpBackend = $injector.get('$httpBackend');
+
+    $rootScope = $injector.get('$rootScope');
+
+    //authRequestHandler = $httpBackend.when('GET', $rootScope.url)
+    //.respond({test: true});
+//fa
+    var $controller = $injector.get('$controller');
+
+    createController = function() {
+      return $controller('searchCtrl', {'$scope' : $rootScope});
+    };
+  }));
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+  it("test init of controller", function(){
+    $httpBackend.expectGET('https://api.soundcloud.com/tracks.json?limit=51&q=undefined&oauth_token=undefined')
+    .respond({data:false});
+    $httpBackend.expectGET('views/stream/stream.html')
+    .respond({data:false});
+    //.respond({data:false});
+    //$httpBackend.expectGET('views/stream/stream.html')
+    //.respond({data:false});
+    var controller = createController();
+    $httpBackend.flush();
+
+    //expect($rootScope.title).toBe("Favorites");
+    //expect($rootScope.data).not.toBeUndefined();
+    //expect($rootScope.busy).toBe(false);
+  });
+});
