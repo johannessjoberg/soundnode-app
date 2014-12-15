@@ -1,6 +1,16 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
+      webdriver: {
+          options: {
+              desiredCapabilities: {
+                  browserName: 'chrome'
+              }
+          },
+          userTests: {
+              tests: ['./test/selenium/selenium_spec.js']
+          }
+      },
     plato: {
       your_task: {
         files: [{
@@ -74,6 +84,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-node-webkit-builder');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-webdriver');
 
     // Build desktop
     grunt.registerTask('build', [
