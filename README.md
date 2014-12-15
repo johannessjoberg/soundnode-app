@@ -1,6 +1,8 @@
 Soundnode App
 ============
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Soundnode/soundnode-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Analytics](https://ga-beacon.appspot.com/UA-50973331-1/soundnode-app/readme)](https://github.com/igrigorik/ga-beacon)
 
 Soundnode App is a Open-Source project to support Soundcloud for desktop. <br>
@@ -12,13 +14,14 @@ Built with Node-Webkit, Node.js, Angular.js and consuming Soundcloud API.
 
 ## Features
 
-- Search
-- Keyboard shortcuts (not native for this release)
-Play/Pause `command+return` or `space`, Prev `command+left`, Next `command+right`, Volume down `command+down`, Volume up `command+up`, Cheat-sheet `shift+?` (ps: use ctrl for Windows/PC user)
-- Listen to songs from your Streams, Likes, Tracks or Playlists
-- Like songs to your "like list"
+- No need to install
+- Native media keyboard shortcuts
+- Desktop song notification
 - Back/Forward navigation
-- Automatic update available notification
+- Listen to songs from your Streams, Likes, Tracks or Playlists
+- Save songs to your Like playlist
+- Search for songs
+- Automatic notification for update
 
 ## Status
 [Status issue](https://github.com/Soundnode/soundnode-app/issues/97)
@@ -47,6 +50,10 @@ See the [Development's page](https://github.com/Soundnode/soundnode-app/wiki/Dev
 
 - Windows
 - Mac
+
+## Author
+
+- [Michael Lancaster](https://github.com/weblancaster)
 
 ## License
 

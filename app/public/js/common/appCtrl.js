@@ -1,30 +1,43 @@
 'use strict'
 
-app.controller('AppCtrl', function ($scope, $window, $log, $rootScope) {
-
+app.controller('AppCtrl', function ($scope, $window, $log, ngDialog, hotkeys) {
     $scope.showBigArtwork = function (img) {
         var newArtwork;
-        if ( img !== null ) {
+        if ( ! (angular.isUndefined(img) || img === null) ) {
             newArtwork = img.replace('large', 't300x300');
             return newArtwork;
         } else {
             newArtwork = 'public/img/logo-short.png';
             return newArtwork;
         }
-    }
+    };
 
     $scope.formatSongDuration = function(duration) {
         var minutes = Math.floor(duration / 60000)
             , seconds = ((duration % 60000) / 1000).toFixed(0);
 
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
+    };
 
     $scope.goBack = function() {
         $window.history.back();
-    }
+    };
 
     $scope.goForward = function() {
         $window.history.forward();
-    }
+    };
+
+    $scope.closeModal = function() {
+        ngDialog.closeAll();
+    };
+
+    // shortcut to open devtools
+    hotkeys.add({
+        combo: 'command+/',
+        description: 'Open devtools',
+        callback: function() {
+            appGUI.openDevTools();
+        }
+    });
+
 });

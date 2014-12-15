@@ -1,8 +1,6 @@
 <div class="playlistsView">
     <h1> {{ title }}</h1>
 
-    <div ng-include="'views/partials/loading.html'"></div>
-
     <!-- Song list wrapper -->
     <div class="playlistsView_inner">
         <ul class="songList">
@@ -33,7 +31,7 @@
                             <i class="fa fa-play"></i>
                             <i class="fa fa-pause"></i>
                         </span>
-                            <img src="{{ checkForPlaceholder(tracks.artwork_url) }}" alt="{{ tracks.title }}" class="songList_item_artwork">
+                            <img ng-src="{{ checkForPlaceholder(tracks.artwork_url) }}" alt="{{ tracks.title }}" class="songList_item_artwork">
                         </div>
 
                         <div class="songList_item_container_info">
@@ -47,5 +45,8 @@
             </li>
         </ul>
     </div>
+    <!-- Song list wrapper / end -->
+
+    <div ng-include="'views/partials/loading.html'"></div>
 
 </div>
