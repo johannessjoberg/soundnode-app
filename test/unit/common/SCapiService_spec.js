@@ -34,7 +34,7 @@ describe('Services', function(){
      });
     it('getNextPage',
      function(){
-       httpBackend.expectGET('&oauth_token=undefined')
+       httpBackend.expectGET('&oauth_token=undefined&linked_partitioning=1')
        .respond({data:false});
        scApi.getNextPage();
        httpBackend.flush();

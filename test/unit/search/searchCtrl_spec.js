@@ -19,7 +19,7 @@ describe('Unit test: searchCtrl', function(){
     $httpBackend.verifyNoOutstandingRequest();
   });
   it("test init of controller", function(){
-    $httpBackend.expectGET('https://api.soundcloud.com/tracks.json?limit=51&q=undefined&oauth_token=undefined')
+    $httpBackend.expectGET('https://api.soundcloud.com/tracks.json?linked_partitioning=1&limit=20&q=undefined&oauth_token=undefined')
     .respond({data:false});
     $httpBackend.expectGET('views/stream/stream.html')
     .respond({data:false});
