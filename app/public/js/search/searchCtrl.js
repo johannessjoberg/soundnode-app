@@ -15,5 +15,4 @@ app.controller('searchCtrl', function ($scope, $http, $stateParams, SCapiService
         }).finally(function(){
             $rootScope.isLoading = false;
         });
-
 });

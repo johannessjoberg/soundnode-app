@@ -8,9 +8,6 @@ describe('Unit test: favoritesCtrl', function(){
 
     $rootScope = $injector.get('$rootScope');
 
-    //authRequestHandler = $httpBackend.when('GET', $rootScope.url)
-    //.respond({test: true});
-//fa
     var $controller = $injector.get('$controller');
 
     createController = function() {
