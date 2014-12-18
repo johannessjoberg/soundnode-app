@@ -33,5 +33,4 @@ app.controller('searchCtrl', function ($scope, $http, $stateParams, SCapiService
                 $rootScope.isLoading = false;
             });
     };
-
 });

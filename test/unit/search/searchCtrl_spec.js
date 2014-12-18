@@ -8,9 +8,6 @@ describe('Unit test: searchCtrl', function(){
 
     $rootScope = $injector.get('$rootScope');
 
-    //authRequestHandler = $httpBackend.when('GET', $rootScope.url)
-    //.respond({test: true});
-//fa
     var $controller = $injector.get('$controller');
 
     createController = function() {
@@ -22,18 +19,12 @@ describe('Unit test: searchCtrl', function(){
     $httpBackend.verifyNoOutstandingRequest();
   });
   it("test init of controller", function(){
-    $httpBackend.expectGET('https://api.soundcloud.com/tracks.json?limit=51&q=undefined&oauth_token=undefined')
+    $httpBackend.expectGET('https://api.soundcloud.com/tracks.json?linked_partitioning=1&limit=20&q=undefined&oauth_token=undefined')
     .respond({data:false});
     $httpBackend.expectGET('views/stream/stream.html')
     .respond({data:false});
-    //.respond({data:false});
-    //$httpBackend.expectGET('views/stream/stream.html')
-    //.respond({data:false});
     var controller = createController();
     $httpBackend.flush();
 
-    //expect($rootScope.title).toBe("Favorites");
-    //expect($rootScope.data).not.toBeUndefined();
-    //expect($rootScope.busy).toBe(false);
   });
 });

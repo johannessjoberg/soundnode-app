@@ -6,13 +6,6 @@ describe('Services', function(){
     scope = $injector.get('$rootScope');
     httpBackend = $injector.get('$httpBackend');
 
-    //authRequestHandler = httpBackend.when('DELETE', '/.*/')
-    //.respond({data: true});
-    //authRequestHandler = httpBackend.when('GET', '/.*/')
-    //.respond({get: true});
-    //authRequestHandler = httpBackend.when('PUT', '/.*/')
-    //.respond({put: true});
-
     //This get is made before every It so i must
     //expect it!
         httpBackend.expectGET('views/stream/stream.html')
@@ -41,7 +34,7 @@ describe('Services', function(){
      });
     it('getNextPage',
      function(){
-       httpBackend.expectGET('&oauth_token=undefined')
+       httpBackend.expectGET('&oauth_token=undefined&linked_partitioning=1')
        .respond({data:false});
        scApi.getNextPage();
        httpBackend.flush();
@@ -55,15 +48,10 @@ describe('Services', function(){
      });
     it('deleteFavorite',
      function(){
-        //httpBackend.expectGET('views/stream/stream.html')
-        //.respond({data: false});
-       //httpBackend.flush();
-        //$httpBackend.expectGET('views/stream/stream.html');
          httpBackend.expectDELETE('https://api.soundcloud.com/users/10/favorites/9.json?&oauth_token=undefined')
        .respond({data:false});
            scApi.deleteFavorite(10,9);
        httpBackend.flush();
-          //expect(scApi.getNextPage()).toBe('sss');
      });
   });
 });

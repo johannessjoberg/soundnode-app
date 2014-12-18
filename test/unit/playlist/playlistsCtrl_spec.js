@@ -8,9 +8,6 @@ describe('Unit test: playlistCtrl', function(){
 
     $rootScope = $injector.get('$rootScope');
 
-    //authRequestHandler = $httpBackend.when('GET', $rootScope.url)
-    //.respond({test: true});
-//fa
     var $controller = $injector.get('$controller');
 
     createController = function() {
@@ -36,15 +33,9 @@ describe('Unit test: playlistCtrl', function(){
     .respond({data:false});
     $httpBackend.expectGET('views/stream/stream.html')
     .respond({data:false});
-    //.respond({data:false});
-    //$httpBackend.expectGET('views/stream/stream.html')
-    //.respond({data:false});
     var controller = createController();
     $httpBackend.flush();
 
-    //expect($rootScope.title).toBe("Favorites");
-    //expect($rootScope.data).not.toBeUndefined();
-    //expect($rootScope.busy).toBe(false);
   });
   it("checkForPlaceholder", function(){
     $httpBackend.expectGET('https://api.soundcloud.com/me/playlists.json?&oauth_token=undefined')

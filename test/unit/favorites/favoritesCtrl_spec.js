@@ -8,9 +8,6 @@ describe('Unit test: favoritesCtrl', function(){
 
     $rootScope = $injector.get('$rootScope');
 
-    //authRequestHandler = $httpBackend.when('GET', $rootScope.url)
-    //.respond({test: true});
-//fa
     var $controller = $injector.get('$controller');
 
     createController = function() {
@@ -47,7 +44,7 @@ describe('Unit test: favoritesCtrl', function(){
     $httpBackend.expectGET('https://api.soundcloud.com/me/favorites.json?&oauth_token=undefined')
     .respond({data:false});
     // Expected when i call loadMore
-    $httpBackend.expectGET('&oauth_token=undefined')
+    $httpBackend.expectGET('&oauth_token=undefined&linked_partitioning=1')
     .respond({data:false});
     $httpBackend.expectGET('views/stream/stream.html')
     .respond({data:false});
