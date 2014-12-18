@@ -1,11 +1,12 @@
 'use strict';
 
 var assert = require('assert'),
-    DELAY = 5000,
-    assertNoError = function(e, r) { assert(e == undefined); };
+DELAY = 5000,
+SHORTDELAY = 2000,
+assertNoError = function(e, r) { assert(e == undefined); };
 
 describe('Selenium suite', function(done) {
-    it("has working show/hide buttons for playlists", function(done) {
+   it("has working show/hide buttons for playlists", function(done) {
         browser
             .pause(DELAY)
             .click('a[ui-sref="playlists"] span', assertNoError) // Playlists
@@ -28,8 +29,76 @@ describe('Selenium suite', function(done) {
             .getCssProperty('li.songList_item', 'height', function(e, r) {
                 assert(parseInt(r[0].value) > 15);
             })
+            .pause(SHORTDELAY)
+            .call(done);
+    }); 
+
+    it("can show and close the about overlay", function(done) {
+        browser
+            .pause(DELAY)
+            .isVisible('.aboutView', function(error, result) {
+                assert(result == undefined);
+            })
+
+            .click('.appInfo_item') // Click on about
+            .pause(SHORTDELAY)
+
+            .isVisible('.aboutView', function(error, result) {
+                assert(result == true);
+            })  
+
+            .click('a.aboutView_closeButton i' , function (error , result) {
+                assert(error == null);
+            }) // Click to close
+
+            .pause(DELAY)
+            .isVisible('.aboutView', function(error, result) {
+                assert(result == undefined);
+            })
+            .pause(SHORTDELAY)
             .call(done);
     });
+
+
+    it("can traverse to the another state - favorites", function(done) {
+        browser
+            .pause(DELAY)
+            .click('a[ui-sref="favorites"]' , assertNoError) // Click on likes
+
+            .pause(SHORTDELAY)
+            .call(done);
+    });
+
+
+    it("can go back to the previous state", function(done) {
+        browser
+            .pause(DELAY)
+            .pause(DELAY)
+            .click('a[ui-sref="favorites"] span', assertNoError)
+
+            .pause(DELAY)
+            .click ('li[class="windowAction_item navigationButton goBack"] i') //Press Back
+
+            .pause(SHORTDELAY)
+            .call(done);
+    });
+
+
+    it("can search for an artist- enrique", function(done) {
+        var searchVal = 'enrique';
+        browser
+            .pause(DELAY)
+            .pause(DELAY)
+           
+            //search for the searchVal variable
+            .setValue('input#search', searchVal, assertNoError)
+
+            .addValue('input#search', 'Enter', assertNoError)
+
+            .pause(DELAY)
+            .call(done);
+    }); 
+
 });
 
 // The code commented below is kept for future reference.
